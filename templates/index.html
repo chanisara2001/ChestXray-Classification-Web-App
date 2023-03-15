@@ -5,6 +5,7 @@
   <title>Upload Image</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
   <link rel="stylesheet" href="https://unpkg.com/cropperjs@1.5.11/dist/cropper.min.css" />
+  <link rel="stylesheet" href="/static/style.css">
 </head>
 
 <body>
@@ -30,13 +31,13 @@
         id="crop-button" style="display: none">
         Crop Image
       </button>
-      <button type="submit" class="btn btn-primary btn-block" id="prediction">Predict</button>
+      <button type="button" class="btn btn-primary btn-block" id="prediction">Predict</button>
     </form>
   </div>
 
   <!-- Crop Modal -->
   <div class=" modal fade" id="crop-modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-dialog-centered custom-crop-modal" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Crop Image</h5>
@@ -64,9 +65,9 @@
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
     integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="/static/index.js"></script>
-  <script src="https://unpkg.com/cropperjs@1.5.11/dist/cropper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+      <script src="https://unpkg.com/cropperjs@1.5.11/dist/cropper.min.js"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+      <script src="/static/index.js"></script>
 
 </body>
 
