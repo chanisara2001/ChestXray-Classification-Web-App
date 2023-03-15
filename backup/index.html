@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Upload Image</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://unpkg.com/cropperjs@1.5.11/dist/cropper.min.css" />
+</head>
+
+<body>
+  <div class="container">
+    <h1 class="text-center mb-4">Upload Image</h1>
+
+    <!-- Form Upload -->
+    <form method="post" enctype="multipart/form-data" action="/predict/" class="border p-4 rounded">
+      <div class="form-group">
+        <label for="image">Choose an image:</label>
+        <div class="custom-file">
+          <input type="file" class="custom-file-input" id="image" name="image" accept="image/*"
+            onchange="previewImage(event)" required />
+          <label class="custom-file-label" for="image">Choose file</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="text-center">
+          <img id="preview" src="" alt="" class="img-fluid rounded" />
+        </div>
+      </div>
+      <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#crop-modal"
+        id="crop-button" style="display: none">
+        Crop Image
+      </button>
+      <button type="submit" class="btn btn-primary btn-block" data-target="#crop-modal" >Predict</button>
+    </form>
+  </div>
+
+  <!-- Crop Modal -->
+  <div class=" modal fade" id="crop-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Crop Image</h5>
+          <button type="button" class="close" data-dismiss="modal">
+            <span>&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="image-container">
+            <img id="crop-image" src="" alt="" class="img-fluid rounded" />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            Cancel
+          </button>
+          <button type="button" class="btn btn-primary" id="crop-submit" data-dismiss="modal">
+            Crop Image
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Script -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/cropperjs@1.5.11/dist/cropper.min.js"></script>
+  <script>
+    var cropper = null;
+
+    function previewImage(event) {
+      var reader = new FileReader();
+      reader.onload = function () {
+        var output = document.getElementById("preview");
+        output.src = reader.result;
+        $("#crop-button").show();
+        $("#crop-image").attr("src", reader.result);
+      };
+      reader.readAsDataURL(event.target.files[0]);
+
+      $("#crop-image").one("load", function () {
+        var originalWidth = this.naturalWidth;
+        var originalHeight = this.naturalHeight;
+        var croppedWidth = cropper.getCroppedCanvas().width;
+        var croppedHeight = cropper.getCroppedCanvas().height;
+        var maxWidth = $("#preview").parent().width();
+        var maxHeight = $("#preview").parent().height();
+
+        // console.log(originalWidth, originalHeight, croppedWidth, croppedHeight, maxWidth, maxHeight);
+
+        if (croppedWidth > originalWidth || croppedHeight > originalHeight) {
+          var scale = Math.min(maxWidth / croppedWidth, maxHeight / croppedHeight);
+          $("#preview").css("max-width", croppedWidth * scale + "px");
+          $("#preview").css("max-height", croppedHeight * scale + "px");
+        } else {
+          $("#preview").css("max-width", "100%");
+          $("#preview").css("max-height", "100%");
+        }
+      });
+    }
+
+    $("#crop-button").click(function () {
+      $("#crop-modal").modal("show");
+      if (cropper !== null) {
+        cropper.destroy();
+      }
+      cropper = new Cropper(document.getElementById("crop-image"), {
+        aspectRatio: 1,
+        viewMode: 2,
+        background: false,
+      });
+    });
+
+    $("#crop-submit").click(function () {
+      var canvas = cropper.getCroppedCanvas({
+        width: 150,
+        height: 150,
+        fillColor: "#fff",
+        imageSmoothingEnabled: false,
+        imageSmoothingQuality: "high",
+      });
+      canvas.toBlob(function (blob) {
+        var formdata = new FormData();
+        formdata.append("image", blob);
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/predict/");
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState === 4 && xhr.status === 200) {
+            var response = JSON.parse(xhr.responseText);
+            window.location.href =
+              "/predict/result?prediction=" + response.prediction;
+          }
+        };
+        xhr.send(formdata);
+        $("#preview").attr("src", canvas.toDataURL());
+      });
+    });
+  </script>
+
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  
+</body>
+</html>
