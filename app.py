@@ -9,7 +9,7 @@ from PIL import Image
 app = FastAPI()
 
 # Load the predictive model
-model = tf.keras.models.load_model('model/EfficientNetB0_None_fold_3.h5')
+model = tf.keras.models.load_model('model/EfficientNetB0.h5')
 
 LABELS = ['No Finding', 'Atelectasis', 'Consolidation', 'Infiltration', 'Pneumothorax', 'Edema', 'Emphysema', 'Fibrosis', 'Effusion', 'Pneumonia', 'Pleural_Thickening', 'Cardiomegaly', 'Nodule', 'Mass', 'Hernia']
 
