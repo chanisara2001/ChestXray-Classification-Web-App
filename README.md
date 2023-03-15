@@ -3,7 +3,7 @@
 ## Download the Model
 You can download the model at https://drive.google.com/drive/folders/1pqp8QPqDeeg-gaYKWXd7bLpWybGla2sE?usp=share_link
 
-Then, move model files (.h5) to folder "model"
+Then create a folder "model" and move model files (.h5) to here.
 
 ## Create an Environment
 Open new terminal for the following steps:
