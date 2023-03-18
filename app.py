@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Request, File, UploadFile
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+from fastapi.responses import HTMLResponse
 import tensorflow as tf
 import numpy as np
 import cv2
@@ -36,10 +37,13 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
 
-@app.get('/')
+@app.get('/', response_class=HTMLResponse)
 async def index(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
+    return templates.TemplateResponse("home.html", {"request": request, "active_page": "home"})
 
+@app.get("/about", response_class=HTMLResponse)
+async def about(request: Request):
+    return templates.TemplateResponse("about.html", {"request": request, "active_page": "about"})
 
 @app.post('/predict/')
 async def predict(request: Request, image: UploadFile = File()):
@@ -63,4 +67,5 @@ async def predict(request: Request, image: UploadFile = File()):
     # sort percent_result by value
     percent_result = dict(sorted(percent_result.items(),
                           key=lambda item: float(item[1]), reverse=True))
-    return templates.TemplateResponse("predict_result.html", {"request": request, 'percent_results': percent_result, 'input_image_data_url': input_image_data_url})
+    
+    return templates.TemplateResponse("result.html", {"request": request, 'percent_results': percent_result, 'input_image_data_url': input_image_data_url})
