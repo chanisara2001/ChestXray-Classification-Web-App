@@ -5,7 +5,6 @@
   <title>Upload Image</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
   <link rel="stylesheet" href="https://unpkg.com/cropperjs@1.5.11/dist/cropper.min.css" />
-  <link rel="stylesheet" href="/static/style.css">
 </head>
 
 <body>
@@ -17,7 +16,7 @@
       <div class="form-group">
         <label for="image">Choose an image:</label>
         <div class="custom-file">
-          <input type="file" class="custom-file-input" id="image" name="image" accept="image/*"
+          <input type="file" class="custom-file-input" id="image" name="image" accept="image/png"
             onchange="previewImage(event)" required />
           <label class="custom-file-label" for="image">Choose file</label>
         </div>
@@ -27,45 +26,14 @@
           <img id="preview" src="" alt="" class="img-fluid rounded" />
         </div>
       </div>
-      <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#crop-modal"
-        id="crop-button" style="display: none">
-        Crop Image
-      </button>
-      <button type="button" class="btn btn-primary btn-block" id="prediction">Predict</button>
+      <button type="submit" class="btn btn-primary btn-block" id="prediction">Predict</button>
     </form>
   </div>
 
-  <!-- Crop Modal -->
-  <div class=" modal fade" id="crop-modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-dialog-centered custom-crop-modal" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Crop Image</h5>
-          <button type="button" class="close" data-dismiss="modal">
-            <span>&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="image-container">
-            <img id="crop-image" src="" alt="" class="img-fluid rounded" />
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">
-            Cancel
-          </button>
-          <button type="button" class="btn btn-primary" id="crop-submit" data-dismiss="modal">
-            Crop Image
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
     integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-      <script src="https://unpkg.com/cropperjs@1.5.11/dist/cropper.min.js"></script>
       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
       <script src="/static/index.js"></script>
 
