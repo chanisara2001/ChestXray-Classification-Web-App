@@ -1,19 +1,23 @@
-<!-- about.html -->
+<!-- result.html -->
 {% extends 'base.html' %}
 
 {% block content %}
 
-<h1 class="text-center mb-4">Predict Result</h1>
+<h1 class="text-center ">Prediction Result</h1>
 <div class="row justify-content-center">
   <div class="col-md-12 text-center">
+    <div class="alert alert-dark" role="alert">
+      This result is a preliminary analysis only.
+    </div>
     <div class="card p-2 m-4">
-      <h2 class="card-title text-center m-1">Percent Results</h2>
+
+      <h2 class="card-title text-center m-1"></h2>
 
       <div class="card-body m-1">
         <div class="row">
           <!-- Image Preview -->
           <div class="col-md-6 d-flex justify-content-center align-items-center">
-            <img id="preview" src="{{ input_image_data_url }}" alt="Uploaded Image" class="img-fluid rounded">
+            <img id="preview" src="{{ input_image_data_url }}" alt="Uploaded Image" class="img-fluid rounded" style="width: 360px;">
           </div>
 
           <!-- Results -->
@@ -23,14 +27,14 @@
                 <thead>
                   <tr>
                     <th>Label</th>
-                    <th>Percent</th>
+                    <th>Percentages </th>
                   </tr>
                 </thead>
                 <tbody>
-                  {% for label, percent in percent_results.items() %}
+                  {% for label, percent in results.items() %}
                   <tr>
                     <td>{{ label }}</td>
-                    <td>{{ percent }}%</td>
+                    <td>{{ percent }} %</td>
                   </tr>
                   {% endfor %}
                 </tbody>

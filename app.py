@@ -14,9 +14,11 @@ app = FastAPI()
 model = tf.keras.models.load_model('model/EfficientNetB0.h5')
 
 LABELS = ['No Finding', 'Atelectasis', 'Consolidation', 'Infiltration', 'Pneumothorax', 'Edema', 'Emphysema',
-          'Fibrosis', 'Effusion', 'Pneumonia', 'Pleural_Thickening', 'Cardiomegaly', 'Nodule', 'Mass', 'Hernia']
+          'Fibrosis', 'Effusion', 'Pneumonia', 'Pleural Thickening', 'Cardiomegaly', 'Nodule', 'Mass', 'Hernia']
 
 # Define a function to preprocess the image
+
+
 def preprocess_image(img):
     img = cv2.resize(img, (224, 224))
     img = np.array(img, dtype=np.float32)
@@ -41,9 +43,16 @@ templates = Jinja2Templates(directory="templates")
 async def index(request: Request):
     return templates.TemplateResponse("home.html", {"request": request, "active_page": "home"})
 
-@app.get("/about", response_class=HTMLResponse)
-async def about(request: Request):
-    return templates.TemplateResponse("about.html", {"request": request, "active_page": "about"})
+
+@app.get("/contact", response_class=HTMLResponse)
+async def contact(request: Request):
+    return templates.TemplateResponse("contact.html", {"request": request, "active_page": "contact"})
+
+
+@app.get("/condition", response_class=HTMLResponse)
+async def condition(request: Request):
+    return templates.TemplateResponse("condition.html", {"request": request, "active_page": "condition"})
+
 
 @app.post('/predict/')
 async def predict(request: Request, image: UploadFile = File()):
@@ -60,12 +69,15 @@ async def predict(request: Request, image: UploadFile = File()):
 
     # Make a prediction using the model
     prediction = model.predict(img)
-    problility = prediction[0]*100
 
-    percent_result = {label: f'{prob:.2f}' for (label, prob) in zip(LABELS, problility)}
+    probabilities = prediction[0]
+    percentages = probabilities * 100
+
+    result = {label: f'{prob:.2f}' for (
+        label, prob) in zip(LABELS, percentages)}
 
     # sort percent_result by value
-    percent_result = dict(sorted(percent_result.items(),
-                          key=lambda item: float(item[1]), reverse=True))
-    
-    return templates.TemplateResponse("result.html", {"request": request, 'percent_results': percent_result, 'input_image_data_url': input_image_data_url})
+    result = dict(sorted(result.items(),
+                         key=lambda item: float(item[1]), reverse=True))
+
+    return templates.TemplateResponse("result.html", {"request": request, 'results': result, 'input_image_data_url': input_image_data_url})

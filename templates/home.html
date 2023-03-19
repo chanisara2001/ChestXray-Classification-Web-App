@@ -2,8 +2,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
+<h3>Chest X-Ray Images Classification</h3>
+<p>Upload X-ray images to diagnose abnormalities. The images are sent to the model and processed for the probabilities
+    of having 14 diseases, which can occur in multiple diseases simultaneously. The diseases analyzed were 'No Finding' (Normal Lung),
+    Atelectasis, Consolidation, Infiltration, Pneumothorax, Edema, Emphysema, Fibrosis, Effusion,
+    Pneumonia, Pleural Thickening, Cardiomegaly, Nodule, Mass, and Hernia</p>
+<p></p>
+
 <!-- Form Upload -->
-<form method="post" enctype="multipart/form-data" action="/predict/" class="border p-4 rounded">
+<form method="post" enctype="multipart/form-data" action="/predict/" class="border p-4 rounded justify-content-center">
     <div class="form-group">
         <label for="image">Choose an image:</label>
         <div class="custom-file">
@@ -14,7 +22,7 @@
     </div>
     <div class="form-group">
         <div class="text-center">
-            <img id="preview" src="" alt="" class="img-fluid rounded" />
+            <img id="preview" src="" alt="" class="img-fluid rounded" style="width: 360px;"/>
         </div>
     </div>
     <button type="submit" class="btn btn-primary btn-block" id="prediction">Predict</button>
@@ -22,10 +30,10 @@
 
 <!-- Script -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-crossorigin="anonymous"></script>
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="/static/index.js"></script>
+<script src="/static/home.js"></script>
 
 {% endblock %}
