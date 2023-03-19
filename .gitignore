@@ -2,3 +2,4 @@ __pycache__/
 model/*
 static/*.png
 static/*.jpg
+env
