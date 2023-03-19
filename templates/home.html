@@ -4,10 +4,10 @@
 {% block content %}
 
 <h3>Chest X-Ray Images Classification</h3>
-<p>Upload X-ray images to diagnose abnormalities. The images are sent to the model and processed for the probabilities
-    of having 14 diseases, which can occur in multiple diseases simultaneously. The diseases analyzed were 'No Finding' (Normal Lung),
-    Atelectasis, Consolidation, Infiltration, Pneumothorax, Edema, Emphysema, Fibrosis, Effusion,
-    Pneumonia, Pleural Thickening, Cardiomegaly, Nodule, Mass, and Hernia</p>
+<p>Upload an X-ray image to analyze the abnormality. The image will be processed into a probability of 14 diseases. This
+    can cause multiple diseases to occur simultaneously. The diseases analyzed include: 'No Finding' (Normal Lung),
+    Atelectasis, Consolidation, Infiltration, Pneumothorax, Edema, Emphysema, Fibrosis, Effusion, Pneumonia, Pleural
+    Thickening, Cardiomegaly, Nodule, Mass, และ Hernia </p>
 <p></p>
 
 <!-- Form Upload -->
@@ -22,7 +22,7 @@
     </div>
     <div class="form-group">
         <div class="text-center">
-            <img id="preview" src="" alt="" class="img-fluid rounded" style="width: 360px;"/>
+            <img id="preview" src="" alt="" class="img-fluid rounded" style="width: 360px;" />
         </div>
     </div>
     <button type="submit" class="btn btn-primary btn-block" id="prediction">Predict</button>
