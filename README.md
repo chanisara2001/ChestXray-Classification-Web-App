@@ -1,7 +1,7 @@
 # ChestXray-Classification-Web-App
 
 ## Download the Model
-You can download the model at https://drive.google.com/drive/folders/1pqp8QPqDeeg-gaYKWXd7bLpWybGla2sE?usp=share_link
+You can download the model and test data at https://drive.google.com/drive/folders/1pqp8QPqDeeg-gaYKWXd7bLpWybGla2sE?usp=share_link
 
 Then create a folder "model" and move model files (.h5) to here.
 
